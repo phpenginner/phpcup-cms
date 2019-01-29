@@ -27,7 +27,25 @@ class ButtonWidget extends \yii\base\Widget
     {
         $buttons = '';
         $this->initDefaultButtons();
+        $buttons .= $this->renderDataCellContent();
         return "<div class='{$this->options['class']}'>{$buttons}</div>";
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function renderDataCellContent()
+    {
+        return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) {
+            $name = $matches[1];
+            if (isset($this->buttons[$name])) {
+                return $this->buttons[$name] instanceof \Closure ? call_user_func($this->buttons[$name]) : $this->buttons[$name];
+            } else {
+                return '';
+            }
+
+
+        }, $this->template);
     }
 
     /**
@@ -40,7 +58,7 @@ class ButtonWidget extends \yii\base\Widget
                 return Html::a('<i class="fa fa-refresh"></i> ' . Yii::t('app', 'Refresh'), Url::to(['refresh']), [
                     'title' => Yii::t('app', 'Refresh'),
                     'data-pjax' => '0',
-                    'class' => 'btn btn-white btn-sm refresh',
+                    'class' => 'btn btn-info btn-rounded',
                 ]);
             };
         }
@@ -50,7 +68,7 @@ class ButtonWidget extends \yii\base\Widget
                 return Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create']), [
                     'title' => Yii::t('app', 'Create'),
                     'data-pjax' => '0',
-                    'class' => 'btn btn-white btn-sm',
+                    'class' => 'btn btn-primary btn-rounded',
                 ]);
             };
         }
@@ -61,7 +79,7 @@ class ButtonWidget extends \yii\base\Widget
                     'title' => Yii::t('app', 'Delete'),
                     'data-pjax' => '0',
                     'data-confirm' => Yii::t('app', 'Really to delete?'),
-                    'class' => 'btn btn-white btn-sm multi-operate',
+                    'class' => 'btn btn-danger btn-rounded',
                 ]);
             };
         }

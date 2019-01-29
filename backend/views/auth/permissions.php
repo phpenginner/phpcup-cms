@@ -8,6 +8,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use backend\widget\ButtonWidget;
+use yii\helpers\Url;
 /**
  * @var $this yii\web\View
  * @var $dataProvider yii\data\ArrayDataProvider
@@ -27,7 +28,7 @@ $this->params['breadcrumbs'][] = Yii::t('admin', 'Permissions');
                             return Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['permission-create']), [
                                 'title' => Yii::t('app', 'Create'),
                                 'data-pjax' => '0',
-                                'class' => 'btn btn-white btn-sm',
+                                'class' => 'btn btn-primary btn-rounded',
                             ]);
                         },
                         'delete' => function () {
@@ -35,7 +36,7 @@ $this->params['breadcrumbs'][] = Yii::t('admin', 'Permissions');
                                 'title' => Yii::t('app', 'Delete'),
                                 'data-pjax' => '0',
                                 'data-confirm' => Yii::t('app', 'Really to delete?'),
-                                'class' => 'btn btn-white btn-sm multi-operate',
+                                'class' => 'btn btn-danger btn-rounded',
                             ]);
                         }
                     ],
@@ -44,6 +45,9 @@ $this->params['breadcrumbs'][] = Yii::t('admin', 'Permissions');
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'tableOptions'=>[
+                            'class'=>"table table-hover"
+                    ],
                     'columns' => [
                         [
                             'class' => \yii\grid\CheckboxColumn::className(),
@@ -74,7 +78,7 @@ $this->params['breadcrumbs'][] = Yii::t('admin', 'Permissions');
                             'attribute' => 'sort',
                         ],
                         [
-                            'class' => ActionColumn::className(),
+                            'class' => \backend\widget\Grid\ActionColumn::className(),
                             'width' => '190px',
                             'buttons' => [
                                 'view-layer' => function($url, $model, $key){

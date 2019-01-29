@@ -25,7 +25,6 @@ return [
     'PasswordHash'=>"加密密码",
     'PasswordResetToken'=>"重置密码秘钥",
     'Email'=>"邮箱",
-    'Role'=>"角色等级",
     'Status'=>"状态",
     'CreatedAt'=>"创建时间",
     'UpdateddAt'=>"更新时间",
@@ -33,5 +32,12 @@ return [
     /*menu*/
 
     /*Auth*/
-    'Permissions'=>"权限"
+    'Permissions'=>"权限",
+    'Route'=>"路由",
+    'HTTP Method'=>"请求方式",
+    'Description'=>"描述",
+    'Group'=>"组",
+    'Category'=>"类别",
+    'Sort'=>"排序",
+    'Role'=>"角色",
 ];
